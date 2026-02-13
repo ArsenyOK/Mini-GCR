@@ -1,0 +1,8 @@
+{
+  "users": [
+    { "id": 1, "email": "admin@test.com", "password": "123456", "role": "admin" },
+    { "id": 2, "email": "manager@test.com", "password": "123456", "role": "manager" }
+  ],
+  "risks": [{ "id": 1, "title": "Data leak risk", "status": "open", "ownerId": 2 }],
+  "tasks": [{ "id": 1, "riskId": 1, "title": "Review access logs", "status": "open" }]
+}
