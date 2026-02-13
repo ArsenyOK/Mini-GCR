@@ -1,0 +1,16 @@
+<h1 class="text-3xl font-bold">Hello world!</h1>
+
+<app-shared-button>click</app-shared-button>
+<div class="max-w-sm mx-auto mt-10">
+  <app-shared-input></app-shared-input>
+</div>
+
+<nav class="p-4 flex gap-3 border-b">
+  <a routerLink="/dashboard" routerLinkActive="font-bold">Dashboard</a>
+  <a routerLink="/tasks" routerLinkActive="font-bold">Tasks</a>
+  <a routerLink="/risks" routerLinkActive="font-bold">Risks</a>
+</nav>
+
+<main class="p-6">
+  <router-outlet />
+</main>
