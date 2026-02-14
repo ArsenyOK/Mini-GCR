@@ -1,16 +1,23 @@
 <header class="sticky top-0 z-10 border-b bg-white/80 backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-      <div class="flex items-center gap-3">
-        <div class="h-9 w-9 rounded-xl bg-slate-900"></div>
-        <div class="leading-tight">
-          <div class="text-sm font-semibold">Mini GRC</div>
-          <div class="text-xs text-slate-500">Governance • Risk • Compliance</div>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <span class="hidden text-xs text-slate-500 sm:inline">env: local</span>
-        <app-shared-button>New item</app-shared-button>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <div class="flex items-center gap-3">
+      <div class="h-9 w-9 rounded-xl bg-slate-900"></div>
+      <div class="leading-tight">
+        <div class="text-sm font-semibold">Mini GRC</div>
+        <div class="text-xs text-slate-500">Governance • Risk • Compliance</div>
       </div>
     </div>
-  </header>
+
+    <div class="flex items-center gap-2">
+      @if (user$ | async; as user) {
+        <div class="hidden text-right sm:block">
+          <div class="text-xs font-medium text-slate-900">{{ user.username }}</div>
+          <div class="text-xs text-slate-500">{{ user.role }}</div>
+        </div>
+        <app-shared-button (click)="logout()">Logout</app-shared-button>
+      } @else {
+        <span class="text-sm text-slate-500">Not signed in</span>
+      }
+    </div>
+  </div>
+</header>
