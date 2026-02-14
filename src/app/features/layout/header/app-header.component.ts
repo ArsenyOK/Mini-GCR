@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { SharedButtonComponent } from '../../../shared/components/shared-button/shared-button.component';
-import { AuthService } from '../../../core/services/AuthService.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
