@@ -1,1 +1,71 @@
-<div>Risks</div>
+<div>
+  <h1 class="text-lg font-semibold mb-4">Risks</h1>
+  <form
+    [formGroup]="form"
+    class="rounded-xl border p-4 mb-6 space-y-4 bg-white"
+    (ngSubmit)="create()"
+  >
+    <div>
+      <label class="block text-sm font-medium mb-1">Title</label>
+      <input
+        type="text"
+        class="w-full rounded-xl border px-3 py-2 outline-none focus:ring"
+        formControlName="title"
+      />
+
+      @if (form.controls.title.touched && form.controls.title.invalid) {
+        <p class="text-xs text-red-600 mt-1">Title must be at least 3 characters</p>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Status</label>
+      <select
+        class="w-full rounded-xl border px-3 py-2 outline-none focus:ring"
+        formControlName="status"
+      >
+        <option value="open">Open</option>
+        <option value="in_review">In Review</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60"
+      [disabled]="isSubmitting()"
+    >
+      Create Risk
+    </button>
+  </form>
+
+  @if (loading$ | async) {
+    <div class="text-sm text-slate-500">Loading...</div>
+  }
+
+  @if (error$ | async; as error) {
+    <div class="text-sm text-red-600 mb-3">
+      {{ error }}
+    </div>
+  }
+
+  @if (risks$ | async; as risks) {
+    @if (risks.length === 0) {
+      <div class="text-sm text-slate-500">No risks found</div>
+    }
+
+    @for (risk of risks; track risk.id) {
+      <div class="rounded-xl border p-3 mb-2 flex justify-between items-center">
+        <div>
+          <div class="font-medium">{{ risk.title }}</div>
+          <div class="text-xs text-slate-500">{{ risk.status }}</div>
+        </div>
+
+        <button class="text-sm text-red-600 hover:underline" (click)="delete(risk.id)">
+          Delete
+        </button>
+      </div>
+    }
+  }
+</div>

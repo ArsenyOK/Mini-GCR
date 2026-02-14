@@ -3,6 +3,7 @@ import { Component, computed, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   standalone: true,
@@ -34,6 +35,7 @@ export class AuthComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
+    private toast: ToastService,
   ) {}
 
   onSubmit(): void {
@@ -51,10 +53,12 @@ export class AuthComponent {
       next: () => {
         this.isSubmitting.set(false);
         this.router.navigateByUrl('/risks');
+        this.toast.success('Successfully logged in');
       },
       error: (err: Error) => {
         this.isSubmitting.set(false);
         this.errorMessage.set(err?.message ?? 'Login failed');
+        this.toast.error(err.message);
       },
     });
   }
