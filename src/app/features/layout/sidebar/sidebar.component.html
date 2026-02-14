@@ -1,0 +1,39 @@
+<aside class="rounded-2xl border bg-white p-3">
+      <div class="mb-3 px-2 text-xs font-medium uppercase tracking-wide text-slate-500">
+        Navigation
+      </div>
+
+      <nav class="flex flex-col gap-1">
+        <a
+          routerLink="/dashboard"
+          routerLinkActive="bg-slate-900 text-white"
+          class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+          >Dashboard</a
+        >
+
+        <a
+          routerLink="/risks"
+          routerLinkActive="bg-slate-900 text-white"
+          class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+          >Risks</a
+        >
+
+        <a
+          routerLink="/tasks"
+          routerLinkActive="bg-slate-900 text-white"
+          class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+          >Tasks</a
+        >
+      </nav>
+
+      <!-- Dev panel (optional) -->
+      <div class="mt-4 rounded-xl border bg-slate-50 p-3">
+        <div class="mb-2 text-xs font-medium text-slate-600">Dev panel</div>
+        <div class="space-y-3">
+          <app-shared-input></app-shared-input>
+          <div class="text-xs text-slate-500">
+            Убери этот блок позже — сейчас он просто для проверки компонентов.
+          </div>
+        </div>
+      </div>
+    </aside>
