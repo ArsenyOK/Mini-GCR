@@ -62,6 +62,13 @@
         </div>
 
         <div class="flex gap-3">
+          <a
+            [routerLink]="['/tasks']"
+            [queryParams]="{ riskId: risk.id }"
+            class="rounded px-3 py-1 text-sm border hover:bg-slate-50"
+          >
+            Open tasks
+          </a>
           <button
             (click)="openEdit(risk)"
             class="rounded px-3 py-1 text-sm border hover:bg-slate-50"

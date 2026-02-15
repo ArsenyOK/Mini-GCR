@@ -17,7 +17,7 @@ export class RisksApiService {
     return this.http.get<Risk[]>(this.baseUrl);
   }
 
-  getById(id: number): Observable<Risk> {
+  getById(id: number | string): Observable<Risk> {
     return this.http.get<Risk>(`${this.baseUrl}/${id}`);
   }
 
@@ -25,11 +25,11 @@ export class RisksApiService {
     return this.http.post<Risk>(this.baseUrl, dto);
   }
 
-  update(id: number, dto: UpdateRiskDto): Observable<Risk> {
+  update(id: number | string, dto: UpdateRiskDto): Observable<Risk> {
     return this.http.patch<Risk>(`${this.baseUrl}/${id}`, dto);
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: number | string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

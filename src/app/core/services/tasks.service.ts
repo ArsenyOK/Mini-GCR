@@ -17,7 +17,7 @@ export class TasksApiService {
     return this.http.get<Task[]>(this.baseUrl);
   }
 
-  getByRiskId(riskId: number): Observable<Task[]> {
+  getByRiskId(riskId: number | string): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.baseUrl}?riskId=${riskId}`);
   }
 

@@ -47,7 +47,7 @@ export class RisksFacade {
       .subscribe();
   }
 
-  updateRisk(id: number, payload: Partial<Risk>) {
+  updateRisk(id: number | string, payload: Partial<Risk>) {
     this.risksService
       .update(id, payload)
       .pipe(
@@ -65,7 +65,7 @@ export class RisksFacade {
       .subscribe();
   }
 
-  deleteRisk(id: number) {
+  deleteRisk(id: number | string) {
     this.risksService
       .delete(id)
       .pipe(

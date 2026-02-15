@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
 import { RisksFacade } from './risks.facade';
 import { Risk } from '../../core/models/risk.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-risks',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './risks.component.html',
 })
 export class RisksComponent implements OnInit {
@@ -73,7 +74,7 @@ export class RisksComponent implements OnInit {
     this.closeEdit();
   }
 
-  delete(id: number) {
+  delete(id: number | string) {
     this.facade.deleteRisk(id);
   }
 }
