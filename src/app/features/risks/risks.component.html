@@ -34,7 +34,6 @@
     <button
       type="submit"
       class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60"
-      [disabled]="isSubmitting()"
     >
       Create Risk
     </button>
@@ -56,16 +55,65 @@
     }
 
     @for (risk of risks; track risk.id) {
-      <div class="rounded-xl border p-3 mb-2 flex justify-between items-center">
+      <div class="rounded-xl border p-3 mb-2 flex justify-between items-center bg-white">
         <div>
           <div class="font-medium">{{ risk.title }}</div>
           <div class="text-xs text-slate-500">{{ risk.status }}</div>
         </div>
 
-        <button class="text-sm text-red-600 hover:underline" (click)="delete(risk.id)">
-          Delete
-        </button>
+        <div class="flex gap-3">
+          <button
+            (click)="openEdit(risk)"
+            class="rounded px-3 py-1 text-sm border hover:bg-slate-50"
+          >
+            Edit
+          </button>
+          <button
+            (click)="delete(risk.id)"
+            class="rounded px-3 py-1 text-sm text-red-600 hover:underline"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     }
+  }
+
+  @if (editingRisk()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div class="w-full max-w-xl rounded-2xl bg-white p-6 shadow-lg">
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-lg font-semibold">Edit risk</div>
+          <button (click)="closeEdit()" class="text-sm text-slate-500">Close</button>
+        </div>
+
+        <form [formGroup]="editForm" (ngSubmit)="submitEdit()" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Title</label>
+            <input type="text" class="w-full rounded-xl border px-3 py-2" formControlName="title" />
+            @if (editForm.controls.title.touched && editForm.controls.title.invalid) {
+              <p class="text-xs text-red-600 mt-1">Title must be at least 3 characters</p>
+            }
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">Status</label>
+            <select class="w-full rounded-xl border px-3 py-2" formControlName="status">
+              <option value="open">Open</option>
+              <option value="in_review">In Review</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+
+          <div class="flex justify-end gap-2">
+            <button type="button" (click)="closeEdit()" class="rounded px-4 py-2 border">
+              Cancel
+            </button>
+            <button type="submit" class="rounded px-4 py-2 bg-slate-900 text-white">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
   }
 </div>
