@@ -27,9 +27,9 @@ export class TasksComponent implements OnInit {
 
   readonly filterRiskId = signal<number | string | null>(null);
 
-  readonly form = this.fb.nonNullable.group({
+  readonly form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
-    riskId: [null as number | null, Validators.required],
+    riskId: [null as string | null, Validators.required],
     status: ['open'],
   });
 
@@ -38,12 +38,11 @@ export class TasksComponent implements OnInit {
 
     this.route.queryParamMap.subscribe((qm) => {
       const val = qm.get('riskId');
-      const id = val ? Number(val) : null;
-      this.filterRiskId.set(id);
+      this.filterRiskId.set(val);
 
-      if (id) {
-        this.form.patchValue({ riskId: id });
-        this.facade.loadByRisk(id);
+      if (val !== null && val !== '') {
+        this.form.patchValue({ riskId: val });
+        this.facade.loadByRisk(val);
       } else {
         this.form.patchValue({ riskId: null });
         this.facade.loadAll();
@@ -52,11 +51,8 @@ export class TasksComponent implements OnInit {
   }
 
   onFilterChange(value: string) {
-    console.info(value, 'value');
     const id = value ? String(value) : null;
     this.filterRiskId.set(id);
-
-    console.info(id, ' id');
 
     this.router.navigate([], {
       relativeTo: this.route,
@@ -65,8 +61,11 @@ export class TasksComponent implements OnInit {
       replaceUrl: false,
     });
 
-    if (id) this.facade.loadByRisk(id);
-    else this.facade.loadAll();
+    if (id) {
+      this.facade.loadByRisk(id);
+    } else {
+      this.facade.loadAll();
+    }
   }
 
   create() {
@@ -74,7 +73,13 @@ export class TasksComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    const payload: any = this.form.getRawValue();
+
+    const raw = this.form.getRawValue();
+    const payload: any = {
+      ...raw,
+      riskId: raw.riskId ? (isNaN(Number(raw.riskId)) ? raw.riskId : Number(raw.riskId)) : null,
+    };
+
     this.facade.createTask(payload);
     this.form.reset({ title: '', riskId: null, status: 'open' });
   }
